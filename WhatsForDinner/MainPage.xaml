@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WhatsForDinner.MainPage"
+             xmlns:viewmodel="clr-namespace:WhatsForDinner.ViewModels"
+             x:DataType="viewmodel:MainViewModel">
+
+    <Grid RowDefinitions="*, Auto, Auto, Auto, Auto"
+          ColumnDefinitions="*, *"
+          RowSpacing="8"
+          ColumnSpacing="8"
+          Padding="8">
+
+        <ScrollView Grid.Row="0"
+                    Grid.ColumnSpan="2">
+            <Label Text="{Binding CompletionText}"
+                   VerticalTextAlignment="End"/>
+        </ScrollView>
+
+        <Entry Text="{Binding PromptText}"
+               Placeholder="Try:'I have bell peppers', 'I am on a keto diet', 'I am allergic to prawns', etc. "
+               Grid.Row="1"
+               Grid.ColumnSpan="2"/>
+
+        <Button Text="Clear prompts"
+                ImageSource="clear_all.png"
+                Command="{Binding ClearCommand}"
+                Grid.Row="2"
+                Grid.Column="0" />
+
+        <Button Text="Show prompts"
+                ImageSource="history.png"
+                Command="{Binding PrintPromptHistoryCommand}"
+                Grid.Row="2"
+                Grid.Column="1" />
+
+        <Button Text="Show me a recipe"
+                ImageSource="cooking.png"
+                Command="{Binding SubmitCommand}"
+                Grid.Row="3"
+                Grid.ColumnSpan="2" />
+
+        <VerticalStackLayout
+            IsVisible="false"
+            WidthRequest="400"
+            Grid.Row="4"
+            Grid.Column="0"
+            Grid.ColumnSpan="2">
+            <Slider
+                Minimum="0"
+                Maximum="100"
+                ValueChanged="UpdateSmoothingButtonText"
+                Value="{Binding SmoothTokenRenderingDelayMs}"/>
+            <Button
+                x:Name="TokenResponseSmoothingButton"
+                HorizontalOptions="Center"
+                IsEnabled="False"/>
+        </VerticalStackLayout>
+    </Grid>
+
+</ContentPage>
+
